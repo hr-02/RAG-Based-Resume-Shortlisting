@@ -1,0 +1,7 @@
+langchain
+langchain_core
+langchain_community
+transformers
+langchain_ollama
+faiss-cpu
+sentence_transformers

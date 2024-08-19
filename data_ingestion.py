@@ -12,16 +12,12 @@ EMBEDDING_MODEL = "llama3"
 
 def initiate_vectorstore():
   df = pd.read_csv(DATA_PATH)
-  loader = DataFrameLoader(df, page_content_column="Resume_str")
+  loader = DataFrameLoader(df, page_content_column="Resume")
   text_splitter = RecursiveCharacterTextSplitter(
     chunk_size = 400,
     chunk_overlap = 40,
   )
-  embedding_model = HuggingFaceEmbeddings(
-        model_name=EMBEDDING_MODEL,
-        model_kwargs={"device": "cpu"},
-  )
-
+  embedding_model = OllamaEmbeddings(model="llama3")
   documents = loader.load()
   document_chunks = text_splitter.split_documents(documents)
   vectorstore_db = FAISS.from_documents(document_chunks, embedding_model)
